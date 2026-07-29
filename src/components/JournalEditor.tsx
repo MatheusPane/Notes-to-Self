@@ -125,13 +125,13 @@ export default function JournalEditor({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className={cn(
-                "font-serif text-xl sm:text-2xl font-medium leading-relaxed border-b pb-4",
-                mode.key === "gratitude" && "text-orange-950/90 dark:text-orange-200/90 border-orange-300/40 dark:border-orange-900/40",
-                mode.key === "vent" && "text-slate-100 dark:text-slate-100 border-red-900/40 dark:border-red-950/60",
-                mode.key === "breathe" && "text-navy dark:text-sky-100 border-sky-300/40 dark:border-sky-800/40",
-                mode.key === "visions" && "text-purple-950/90 dark:text-purple-100/90 border-purple-300/40 dark:border-purple-900/40",
-                mode.key === "braindump" && "text-charcoal dark:text-slate-200 border-slate-300/40 dark:border-slate-700/40",
-                !["gratitude", "vent", "breathe", "visions", "braindump"].includes(mode.key) && "text-navy/90 border-broken-white/60"
+                "font-serif text-xl sm:text-2xl font-bold leading-relaxed border-b pb-4",
+                mode.key === "gratitude" && "text-amber-950 dark:text-amber-100 border-amber-300/50 dark:border-amber-900/50",
+                mode.key === "vent" && "text-slate-100 dark:text-slate-100 border-red-900/50 dark:border-red-950/60",
+                mode.key === "breathe" && "text-slate-900 dark:text-sky-100 border-sky-300/50 dark:border-sky-800/50",
+                mode.key === "visions" && "text-purple-950 dark:text-purple-100 border-purple-300/50 dark:border-purple-800/50",
+                mode.key === "braindump" && "text-slate-900 dark:text-slate-100 border-slate-300/50 dark:border-slate-700/50",
+                !["gratitude", "vent", "breathe", "visions", "braindump"].includes(mode.key) && "text-navy dark:text-slate-100 border-broken-white/60"
               )}
             >
               {mode.prompt}
@@ -175,13 +175,13 @@ export default function JournalEditor({
                       : "Start writing your reflection..."
                   }
                   className={cn(
-                    "w-full bg-transparent border-none outline-none resize-none font-serif text-base sm:text-lg min-h-[300px] md:min-h-[400px]",
-                    mode.key === "gratitude" && "text-[#3a2e2b] dark:text-[#f7eade] placeholder:text-[#3a2e2b]/40 dark:placeholder:text-[#f7eade]/40 leading-relaxed",
-                    mode.key === "vent" && "text-slate-100 dark:text-slate-200 placeholder:text-slate-500 leading-relaxed font-sans",
-                    mode.key === "breathe" && "text-[#2c3e50] dark:text-[#e2f1f8] placeholder:text-[#2c3e50]/40 dark:placeholder:text-[#e2f1f8]/40 leading-relaxed",
-                    mode.key === "visions" && "text-[#2d2438] dark:text-[#f3ebfa] placeholder:text-[#2d2438]/40 dark:placeholder:text-[#f3ebfa]/40 leading-relaxed",
-                    mode.key === "braindump" && "text-[#2d3748] dark:text-[#e2e8f0] placeholder:text-[#2d3748]/40 dark:placeholder:text-[#e2e8f0]/40 leading-[32px] pt-[2px]",
-                    !["gratitude", "vent", "breathe", "visions", "braindump"].includes(mode.key) && "text-charcoal placeholder:text-muted/40 leading-relaxed"
+                    "w-full bg-transparent border-none outline-none resize-none font-serif text-base sm:text-lg min-h-[300px] md:min-h-[400px] font-medium",
+                    mode.key === "gratitude" && "text-amber-950 dark:text-amber-50 placeholder:text-amber-900/40 dark:placeholder:text-amber-200/40 leading-relaxed",
+                    mode.key === "vent" && "text-slate-100 dark:text-slate-100 placeholder:text-slate-400 leading-relaxed font-sans",
+                    mode.key === "breathe" && "text-slate-900 dark:text-sky-50 placeholder:text-slate-500/50 dark:placeholder:text-sky-200/40 leading-relaxed",
+                    mode.key === "visions" && "text-purple-950 dark:text-purple-50 placeholder:text-purple-900/40 dark:placeholder:text-purple-200/40 leading-relaxed",
+                    mode.key === "braindump" && "text-slate-900 dark:text-slate-100 placeholder:text-slate-400/50 leading-[32px] pt-[2px]",
+                    !["gratitude", "vent", "breathe", "visions", "braindump"].includes(mode.key) && "text-charcoal dark:text-slate-100 placeholder:text-muted/40 leading-relaxed"
                   )}
                   autoFocus
                 />

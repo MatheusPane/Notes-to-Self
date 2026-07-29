@@ -354,19 +354,19 @@ html.dark .paper-breathe {
 
 /* 4. Visions: Crisp Ethereal Lilac Bullet Journal Grid */
 .paper-visions {
-  background-color: #fbf8fd;
+  background-color: #fcfaff;
   background-image: 
-    linear-gradient(to right, rgba(166, 139, 190, 0.14) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(166, 139, 190, 0.14) 1px, transparent 1px);
+    linear-gradient(to right, rgba(147, 51, 234, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(147, 51, 234, 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
-  box-shadow: 0 20px 40px -15px rgba(201, 184, 217, 0.3), 0 0 0 1px rgba(201, 184, 217, 0.4);
+  box-shadow: 0 20px 40px -15px rgba(168, 85, 247, 0.15), 0 0 0 1px rgba(216, 180, 254, 0.4);
 }
 
 html.dark .paper-visions {
   background-color: #16121e;
   background-image: 
-    linear-gradient(to right, rgba(166, 139, 190, 0.18) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(166, 139, 190, 0.18) 1px, transparent 1px);
+    linear-gradient(to right, rgba(192, 132, 252, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(192, 132, 252, 0.12) 1px, transparent 1px);
   background-size: 24px 24px;
   box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(166, 139, 190, 0.2);
 }
