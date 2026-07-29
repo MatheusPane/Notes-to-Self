@@ -81,6 +81,22 @@ export interface Translations {
     alreadyHaveAccount: string;
     footerNotice: string;
   };
+  devotionPage: {
+    backToDashboard: string;
+    spaceTitle: string;
+    saveEntry: string;
+    scriptureRefLabel: string;
+    scriptureRefPlaceholder: string;
+    verseLabel: string;
+    versePlaceholder: string;
+    reflectionLabel: string;
+    reflectionPlaceholder: string;
+    savedTitle: string;
+    savedSub: string;
+    words: string;
+    characters: string;
+    autoSaved: string;
+  };
 }
 
 export const translations: Record<Language, Translations> = {
@@ -165,6 +181,22 @@ export const translations: Record<Language, Translations> = {
       alreadyHaveAccount: "I already have an account",
       footerNotice: "Your entries are private, encrypted, and only yours. Always.",
     },
+    devotionPage: {
+      backToDashboard: "Back to Dashboard",
+      spaceTitle: "Devotion & Meditation",
+      saveEntry: "Save Entry",
+      scriptureRefLabel: "Scripture Reference / Title",
+      scriptureRefPlaceholder: "e.g., Matthew 1:1-5 or Psalm 23:1-6",
+      verseLabel: "Key Verse (Optional Excerpt)",
+      versePlaceholder: "Paste or type the verse here...",
+      reflectionLabel: "My Reflection & Personal Application",
+      reflectionPlaceholder: "What did I learn? How does this apply to my life today? Write your summary here...",
+      savedTitle: "Reflection Saved 📖",
+      savedSub: "Your spiritual notes are stored safely. Redirecting...",
+      words: "words",
+      characters: "characters",
+      autoSaved: "Draft auto-saved at",
+    },
   },
   id: {
     navbar: {
@@ -246,6 +278,22 @@ export const translations: Record<Language, Translations> = {
       startJournaling: "Mulai Menulis",
       alreadyHaveAccount: "Saya sudah punya akun",
       footerNotice: "Catatanmu bersifat pribadi, terenkripsi, dan sepenuhnya milikmu. Selalu.",
+    },
+    devotionPage: {
+      backToDashboard: "Kembali ke Dashboard",
+      spaceTitle: "Renungan & Meditasi",
+      saveEntry: "Simpan Catatan",
+      scriptureRefLabel: "Referensi Kitab Suci / Judul",
+      scriptureRefPlaceholder: "contoh: Matius 1:1-5 atau Mazmur 23:1-6",
+      verseLabel: "Ayat Kunci (Kutipan Opsional)",
+      versePlaceholder: "Tempel atau ketik ayat di sini...",
+      reflectionLabel: "Refleksi & Penerapan Pribadi",
+      reflectionPlaceholder: "Apa yang saya pelajari? Bagaimana hal ini berlaku dalam hidup saya hari ini? Tulis renunganmu di sini...",
+      savedTitle: "Renungan Tersimpan 📖",
+      savedSub: "Catatan rohanimu tersimpan dengan aman. Mengalihkan...",
+      words: "kata",
+      characters: "karakter",
+      autoSaved: "Draf tersimpan otomatis pukul",
     },
   },
 };

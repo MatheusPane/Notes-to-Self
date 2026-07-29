@@ -5,11 +5,15 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { BookMarked, ArrowLeft, Save, Loader2, Check, Sparkles } from "lucide-react";
 import { createEntry } from "@/app/actions/journalActions";
+import { useLanguage } from "@/context/LanguageContext";
 
 const DRAFT_KEY = "notes_to_self_devotion_draft";
 
 export default function DevotionPage() {
   const router = useRouter();
+  const { t } = useLanguage();
+  const d = t.devotionPage;
+
   const [scriptureRef, setScriptureRef] = useState("");
   const [verseText, setVerseText] = useState("");
   const [reflection, setReflection] = useState("");
@@ -54,7 +58,7 @@ export default function DevotionPage() {
     if (!hasContent || saving) return;
     setSaving(true);
     try {
-      const titleText = scriptureRef.trim() || "Scripture Reflection";
+      const titleText = scriptureRef.trim() || d.spaceTitle;
       const fullContent = [
         verseText.trim() ? `> "${verseText.trim()}"` : "",
         reflection.trim(),
@@ -76,7 +80,7 @@ export default function DevotionPage() {
     } finally {
       setSaving(false);
     }
-  }, [scriptureRef, verseText, reflection, hasContent, saving, router]);
+  }, [scriptureRef, verseText, reflection, hasContent, saving, router, d.spaceTitle]);
 
   const totalWords = (verseText + " " + reflection).trim()
     ? (verseText + " " + reflection).trim().split(/\s+/).length
@@ -101,7 +105,7 @@ export default function DevotionPage() {
             className="flex items-center gap-1.5 text-sm font-medium text-stone-700 dark:text-gray-300 hover:text-stone-900 dark:hover:text-white transition-colors px-3 py-1.5 rounded-xl hover:bg-white/40 dark:hover:bg-white/10"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span className="hidden sm:inline">Back to Dashboard</span>
+            <span className="hidden sm:inline">{d.backToDashboard}</span>
           </button>
 
           <div className="flex items-center gap-2">
@@ -109,7 +113,7 @@ export default function DevotionPage() {
               <BookMarked className="w-4 h-4" />
             </div>
             <span className="font-serif text-base font-bold text-stone-900 dark:text-white">
-              Devotion & Meditation
+              {d.spaceTitle}
             </span>
           </div>
 
@@ -125,7 +129,7 @@ export default function DevotionPage() {
             ) : (
               <Save className="w-4 h-4" />
             )}
-            <span>Save Entry</span>
+            <span>{d.saveEntry}</span>
           </motion.button>
         </div>
       </div>
@@ -143,10 +147,10 @@ export default function DevotionPage() {
                 <Check className="w-8 h-8" />
               </div>
               <p className="font-serif text-2xl text-stone-900 dark:text-white font-bold">
-                Reflection Saved 📖
+                {d.savedTitle}
               </p>
               <p className="text-sm text-stone-600 dark:text-gray-300 mt-1">
-                Your spiritual notes are stored safely. Redirecting...
+                {d.savedSub}
               </p>
             </motion.div>
           ) : (
@@ -154,13 +158,13 @@ export default function DevotionPage() {
               {/* Field 1: Scripture Reference (Title) */}
               <div>
                 <label className="block text-xs font-semibold text-amber-900/70 dark:text-amber-300 uppercase tracking-wider mb-1">
-                  Scripture Reference / Title
+                  {d.scriptureRefLabel}
                 </label>
                 <input
                   type="text"
                   value={scriptureRef}
                   onChange={(e) => setScriptureRef(e.target.value)}
-                  placeholder="e.g., Matthew 1:1-5 or Psalm 23:1-6"
+                  placeholder={d.scriptureRefPlaceholder}
                   className="w-full bg-transparent border-b border-amber-900/20 dark:border-zinc-700 pb-3 outline-none font-serif text-2xl sm:text-3xl text-stone-900 dark:text-white font-bold placeholder:text-stone-400 dark:placeholder:text-zinc-500"
                 />
               </div>
@@ -168,13 +172,13 @@ export default function DevotionPage() {
               {/* Field 2: The Verse (Optional Indented Quote Box) */}
               <div className="space-y-1.5">
                 <label className="block text-xs font-semibold text-amber-900/70 dark:text-amber-300 uppercase tracking-wider">
-                  Key Verse (Optional Excerpt)
+                  {d.verseLabel}
                 </label>
                 <div className="border-l-4 border-amber-600/50 dark:border-amber-500/50 pl-4 py-2 bg-amber-500/5 dark:bg-zinc-900/60 rounded-r-2xl border border-amber-200/40 dark:border-zinc-800">
                   <textarea
                     value={verseText}
                     onChange={(e) => setVerseText(e.target.value)}
-                    placeholder="Paste or type the verse here..."
+                    placeholder={d.versePlaceholder}
                     className="w-full bg-transparent border-none outline-none resize-none font-serif italic text-base sm:text-lg text-stone-800 dark:text-zinc-100 placeholder:text-stone-400 dark:placeholder:text-zinc-500 leading-relaxed min-h-[80px]"
                     rows={3}
                   />
@@ -184,12 +188,12 @@ export default function DevotionPage() {
               {/* Field 3: My Reflection & Summary */}
               <div className="space-y-1.5">
                 <label className="block text-xs font-semibold text-amber-900/70 dark:text-amber-300 uppercase tracking-wider">
-                  My Reflection & Personal Application
+                  {d.reflectionLabel}
                 </label>
                 <textarea
                   value={reflection}
                   onChange={(e) => setReflection(e.target.value)}
-                  placeholder="What did I learn? How does this apply to my life today? Write your summary here..."
+                  placeholder={d.reflectionPlaceholder}
                   autoFocus
                   className="w-full bg-transparent border-none outline-none resize-none font-serif text-base sm:text-lg text-stone-900 dark:text-white placeholder:text-stone-400 dark:placeholder:text-zinc-500 leading-relaxed min-h-[300px] md:min-h-[350px]"
                 />
@@ -198,17 +202,21 @@ export default function DevotionPage() {
               {/* Footer Reading & Auto-save Status Bar */}
               <div className="pt-4 border-t border-amber-900/20 dark:border-zinc-700/60 flex flex-wrap items-center justify-between gap-4 text-xs text-stone-500 dark:text-gray-300 font-sans">
                 <div className="flex items-center gap-4">
-                  <span>{totalWords} words</span>
+                  <span>
+                    {totalWords} {d.words}
+                  </span>
                   <span>•</span>
                   <span>
-                    {scriptureRef.length + verseText.length + reflection.length} characters
+                    {scriptureRef.length + verseText.length + reflection.length} {d.characters}
                   </span>
                 </div>
 
                 {lastSavedTime && (
                   <div className="flex items-center gap-1.5 text-amber-700 dark:text-amber-300 font-medium">
                     <Sparkles className="w-3.5 h-3.5" />
-                    <span>Draft auto-saved at {lastSavedTime}</span>
+                    <span>
+                      {d.autoSaved} {lastSavedTime}
+                    </span>
                   </div>
                 )}
               </div>
