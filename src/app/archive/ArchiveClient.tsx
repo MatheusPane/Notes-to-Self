@@ -143,6 +143,7 @@ export default function ArchiveClient({ initialEntries }: ArchiveClientProps) {
               if (mode.key === "breathe") modeLabel = t.modes.breatheLabel;
               if (mode.key === "visions") modeLabel = t.modes.visionsLabel;
               if (mode.key === "braindump") modeLabel = t.modes.braindumpLabel;
+              if (mode.key === "devotion") modeLabel = t.modes.devotionLabel;
 
               return (
                 <button

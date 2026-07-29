@@ -58,6 +58,9 @@ export default function ModeSelector() {
           } else if (mode.key === "braindump") {
             modeLabel = t.modes.braindumpLabel;
             modePrompt = t.modes.braindumpPrompt;
+          } else if (mode.key === "devotion") {
+            modeLabel = t.modes.devotionLabel;
+            modePrompt = t.modes.devotionPrompt;
           }
 
           return (
