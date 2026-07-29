@@ -6,6 +6,7 @@ import { Save, ArrowLeft, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { createEntry } from "@/app/actions/journalActions";
 import type { ModeConfig } from "@/lib/modes";
+import { cn } from "@/lib/utils";
 
 interface JournalEditorProps {
   mode: ModeConfig;
@@ -100,14 +101,38 @@ export default function JournalEditor({
 
       {/* Floating Paper Canvas Wrapper (Centered at Optimal Reading Width) */}
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        <div className="bg-white/70 glass rounded-3xl p-6 sm:p-10 shadow-xl border border-broken-white/80 space-y-6">
+        <div
+          className={cn(
+            "relative transition-all duration-300 p-6 sm:p-10 space-y-6 overflow-hidden",
+            mode.key === "gratitude" && "paper-gratitude rounded-3xl",
+            mode.key === "vent" && "paper-vent rounded-3xl",
+            mode.key === "breathe" && "paper-breathe rounded-[2rem]",
+            mode.key === "visions" && "paper-visions rounded-2xl",
+            mode.key === "braindump" && "paper-braindump rounded-3xl pl-8 sm:pl-14",
+            !["gratitude", "vent", "breathe", "visions", "braindump"].includes(mode.key) &&
+              "bg-white/70 glass rounded-3xl shadow-xl border border-broken-white/80"
+          )}
+        >
+          {/* Vertical Red Notebook Line for Brain Dump Mode */}
+          {mode.key === "braindump" && (
+            <div className="absolute left-6 sm:left-10 top-0 bottom-0 w-[2px] bg-red-400/50 dark:bg-red-500/40 pointer-events-none" />
+          )}
+
           {/* Prompt Header */}
           {mode.prompt && (
             <motion.p
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="font-serif text-xl sm:text-2xl text-navy/90 font-medium leading-relaxed border-b border-broken-white/60 pb-4"
+              className={cn(
+                "font-serif text-xl sm:text-2xl font-medium leading-relaxed border-b pb-4",
+                mode.key === "gratitude" && "text-orange-950/90 dark:text-orange-200/90 border-orange-300/40 dark:border-orange-900/40",
+                mode.key === "vent" && "text-slate-100 dark:text-slate-100 border-red-900/40 dark:border-red-950/60",
+                mode.key === "breathe" && "text-navy dark:text-sky-100 border-sky-300/40 dark:border-sky-800/40",
+                mode.key === "visions" && "text-purple-950/90 dark:text-purple-100/90 border-purple-300/40 dark:border-purple-900/40",
+                mode.key === "braindump" && "text-charcoal dark:text-slate-200 border-slate-300/40 dark:border-slate-700/40",
+                !["gratitude", "vent", "breathe", "visions", "braindump"].includes(mode.key) && "text-navy/90 border-broken-white/60"
+              )}
             >
               {mode.prompt}
             </motion.p>
@@ -126,8 +151,12 @@ export default function JournalEditor({
               <div className="w-16 h-16 rounded-full bg-sage/20 flex items-center justify-center mb-4 text-sage-dark shadow-xs">
                 <Save className="w-7 h-7" />
               </div>
-              <p className="font-serif text-xl text-navy font-bold">Saved to your journal 🌿</p>
-              <p className="text-sm text-muted mt-1">Redirecting to your dashboard...</p>
+              <p className="font-serif text-xl text-navy dark:text-slate-100 font-bold">
+                Saved to your journal 🌿
+              </p>
+              <p className="text-sm text-muted dark:text-slate-400 mt-1">
+                Redirecting to your dashboard...
+              </p>
             </motion.div>
           ) : (
             <>
@@ -145,13 +174,26 @@ export default function JournalEditor({
                       ? "Just start typing..."
                       : "Start writing your reflection..."
                   }
-                  className="w-full bg-transparent border-none outline-none resize-none font-serif text-base sm:text-lg text-charcoal placeholder:text-muted/40 placeholder:font-serif placeholder:italic leading-relaxed min-h-[300px] md:min-h-[400px]"
+                  className={cn(
+                    "w-full bg-transparent border-none outline-none resize-none font-serif text-base sm:text-lg min-h-[300px] md:min-h-[400px]",
+                    mode.key === "gratitude" && "text-[#3a2e2b] dark:text-[#f7eade] placeholder:text-[#3a2e2b]/40 dark:placeholder:text-[#f7eade]/40 leading-relaxed",
+                    mode.key === "vent" && "text-slate-100 dark:text-slate-200 placeholder:text-slate-500 leading-relaxed font-sans",
+                    mode.key === "breathe" && "text-[#2c3e50] dark:text-[#e2f1f8] placeholder:text-[#2c3e50]/40 dark:placeholder:text-[#e2f1f8]/40 leading-relaxed",
+                    mode.key === "visions" && "text-[#2d2438] dark:text-[#f3ebfa] placeholder:text-[#2d2438]/40 dark:placeholder:text-[#f3ebfa]/40 leading-relaxed",
+                    mode.key === "braindump" && "text-[#2d3748] dark:text-[#e2e8f0] placeholder:text-[#2d3748]/40 dark:placeholder:text-[#e2e8f0]/40 leading-[32px] pt-[2px]",
+                    !["gratitude", "vent", "breathe", "visions", "braindump"].includes(mode.key) && "text-charcoal placeholder:text-muted/40 leading-relaxed"
+                  )}
                   autoFocus
                 />
               </motion.div>
 
               {/* Character & Word Counter */}
-              <div className="pt-4 border-t border-broken-white/60 flex items-center justify-between text-xs text-muted">
+              <div
+                className={cn(
+                  "pt-4 border-t flex items-center justify-between text-xs font-sans",
+                  mode.key === "vent" ? "text-slate-400 border-red-900/40" : "text-muted border-black/10 dark:border-white/10"
+                )}
+              >
                 <span>{content.trim() ? content.trim().split(/\s+/).length : 0} words</span>
                 <span>
                   {charCount} {charCount === 1 ? "character" : "characters"}
