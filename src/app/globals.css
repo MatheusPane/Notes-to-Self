@@ -393,3 +393,60 @@ html.dark .paper-braindump {
   );
   box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(74, 124, 89, 0.2);
 }
+
+/* ── Direct High-Contrast Text Color Enforcement for all Paper Canvas Themes ── */
+
+.paper-gratitude textarea,
+.paper-gratitude p:not(.text-muted),
+.paper-gratitude span:not(.text-muted) {
+  color: #2b1d16 !important;
+}
+html.dark .paper-gratitude textarea,
+html.dark .paper-gratitude p:not(.text-muted),
+html.dark .paper-gratitude span:not(.text-muted) {
+  color: #f7eade !important;
+}
+
+.paper-vent textarea,
+.paper-vent p:not(.text-muted),
+.paper-vent span:not(.text-muted) {
+  color: #f8fafc !important;
+}
+html.dark .paper-vent textarea,
+html.dark .paper-vent p:not(.text-muted),
+html.dark .paper-vent span:not(.text-muted) {
+  color: #f8fafc !important;
+}
+
+.paper-breathe textarea,
+.paper-breathe p:not(.text-muted),
+.paper-breathe span:not(.text-muted) {
+  color: #0f172a !important;
+}
+html.dark .paper-breathe textarea,
+html.dark .paper-breathe p:not(.text-muted),
+html.dark .paper-breathe span:not(.text-muted) {
+  color: #e2f1f8 !important;
+}
+
+.paper-visions textarea,
+.paper-visions p:not(.text-muted),
+.paper-visions span:not(.text-muted) {
+  color: #1e0a38 !important;
+}
+html.dark .paper-visions textarea,
+html.dark .paper-visions p:not(.text-muted),
+html.dark .paper-visions span:not(.text-muted) {
+  color: #f3ebfa !important;
+}
+
+.paper-braindump textarea,
+.paper-braindump p:not(.text-muted),
+.paper-braindump span:not(.text-muted) {
+  color: #0f172a !important;
+}
+html.dark .paper-braindump textarea,
+html.dark .paper-braindump p:not(.text-muted),
+html.dark .paper-braindump span:not(.text-muted) {
+  color: #f1f5f9 !important;
+}
