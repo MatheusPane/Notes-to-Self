@@ -1,0 +1,226 @@
+@import "tailwindcss";
+
+/* ── Design Tokens ── */
+@theme {
+  /* Earth Tone Palette */
+  --color-cream: #faf8f5;
+  --color-cream-dark: #f0ece6;
+  --color-warm-white: #f5f2ed;
+  --color-broken-white: #ede8e0;
+
+  --color-sage: #a8b5a0;
+  --color-sage-light: #c5d1bf;
+  --color-sage-dark: #7a8c72;
+
+  --color-peach: #f0c9b0;
+  --color-peach-light: #f7ddc8;
+  --color-peach-dark: #d4a788;
+
+  --color-navy: #2c3e50;
+  --color-navy-light: #34495e;
+  --color-navy-dark: #1a252f;
+
+  --color-lilac: #c9b8d9;
+  --color-lilac-light: #ddd0e8;
+  --color-lilac-dark: #a68bbe;
+
+  --color-sky: #a8cce0;
+  --color-sky-light: #c8dfe9;
+
+  --color-sand: #c4b5a0;
+  --color-sand-light: #d8cfc0;
+
+  --color-charcoal: #3a3a3a;
+  --color-muted: #8a8580;
+
+  /* Mood colors */
+  --color-mood-peaceful: #a8b5a0;
+  --color-mood-grateful: #f0c9b0;
+  --color-mood-anxious: #d4a788;
+  --color-mood-reflective: #a8cce0;
+  --color-mood-low: #c9b8d9;
+  --color-mood-energetic: #f0d9a0;
+
+  /* Flame/burn colors */
+  --color-ember: #ff6b35;
+  --color-flame: #ff9f1c;
+  --color-ash: #6b6b6b;
+
+  /* Fonts */
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+/* ── Base Styles ── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-sand) transparent;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-cream);
+  color: var(--color-charcoal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: var(--color-sage-light);
+  color: var(--color-navy-dark);
+}
+
+/* ── Dark Mode Overrides ── */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #12181f;
+  color: #f1f5f9;
+}
+
+html.dark ::selection {
+  background-color: #334155;
+  color: #f8fafc;
+}
+
+html.dark .bg-cream {
+  background-color: #12181f !important;
+}
+
+html.dark .bg-cream\/60 {
+  background-color: rgba(30, 41, 59, 0.6) !important;
+}
+
+html.dark .bg-cream\/85,
+html.dark .bg-cream\/95 {
+  background-color: rgba(18, 24, 31, 0.9) !important;
+}
+
+html.dark .bg-white\/40,
+html.dark .bg-white\/60,
+html.dark .bg-white\/70,
+html.dark .bg-white\/80 {
+  background-color: rgba(30, 41, 59, 0.5) !important;
+}
+
+html.dark .border-broken-white,
+html.dark .border-broken-white\/60,
+html.dark .border-broken-white\/80 {
+  border-color: rgba(51, 65, 85, 0.6) !important;
+}
+
+html.dark .text-navy {
+  color: #f8fafc !important;
+}
+
+html.dark .text-charcoal,
+html.dark .text-charcoal\/85,
+html.dark .text-charcoal\/90 {
+  color: #e2e8f0 !important;
+}
+
+html.dark .text-muted,
+html.dark .text-muted\/70,
+html.dark .text-muted\/80 {
+  color: #94a3b8 !important;
+}
+
+html.dark .bg-sage\/15 {
+  background-color: rgba(122, 140, 114, 0.25) !important;
+}
+
+html.dark .text-sage-dark {
+  color: #a8b5a0 !important;
+}
+
+/* ── Clerk Theme Overrides ── */
+.cl-rootBox {
+  font-family: var(--font-sans);
+}
+
+.cl-card {
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Custom Scrollbar (WebKit) ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-sand);
+  border-radius: 3px;
+}
+
+/* ── Utility Classes ── */
+.text-balance {
+  text-wrap: balance;
+}
+
+.glass {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Breathing Animation ── */
+@keyframes breathe-in-out {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  25% { transform: scale(1.4); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 1; }
+  75% { transform: scale(1); opacity: 0.6; }
+}
+
+.animate-breathe {
+  animation: breathe-in-out 16s ease-in-out infinite;
+}
+
+/* ── Floating Particles ── */
+@keyframes float-up {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-120px) scale(0); opacity: 0; }
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(5px) translateY(-3px); }
+  50% { transform: translateX(-3px) translateY(-6px); }
+  75% { transform: translateX(4px) translateY(-2px); }
+}
+
+.animate-float-up {
+  animation: float-up 2s ease-out forwards;
+}
+
+.animate-drift {
+  animation: drift 6s ease-in-out infinite;
+}
+
+/* ── Textarea styling ── */
+.journal-textarea {
+  resize: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: inherit;
+  width: 100%;
+  min-height: 300px;
+}
+
+.journal-textarea::placeholder {
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.journal-textarea:focus {
+  outline: none;
+}

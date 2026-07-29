@@ -1,0 +1,47 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id
+  email     String?
+  name      String?
+  createdAt DateTime @default(now())
+  entries   Entry[]
+  moods     MoodLog[]
+}
+
+model Entry {
+  id        String   @id @default(cuid())
+  userId    String
+  mode      String   // gratitude, vent, breathe, visions, braindump
+  title     String?
+  content   String
+  tags      String   @default("")
+  burned    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([mode])
+}
+
+model MoodLog {
+  id        String   @id @default(cuid())
+  userId    String
+  mood      String   // peaceful, grateful, anxious, reflective, low, energetic
+  note      String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
