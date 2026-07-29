@@ -145,6 +145,86 @@ html.dark .text-sage-dark {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
 }
 
+/* ── Clerk Dark Mode Overrides ── */
+html.dark .cl-card,
+html.dark .cl-userButtonPopoverCard,
+html.dark .cl-userProfile-root {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark .cl-headerTitle,
+html.dark .cl-modalHeaderTitle,
+html.dark .cl-userPreviewMainIdentifier,
+html.dark .cl-profileSectionTitleText {
+  color: #f8fafc !important;
+}
+
+html.dark .cl-headerSubtitle,
+html.dark .cl-userPreviewSecondaryIdentifier,
+html.dark .cl-formFieldHintText,
+html.dark .cl-profileSectionSubtitleText {
+  color: #94a3b8 !important;
+}
+
+html.dark .cl-formFieldLabel {
+  color: #cbd5e1 !important;
+}
+
+html.dark .cl-formFieldInput {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+html.dark .cl-formFieldInput::placeholder {
+  color: #64748b !important;
+}
+
+html.dark .cl-socialButtonsIconButton,
+html.dark .cl-socialButtonsBlockButton {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #e2e8f0 !important;
+}
+
+html.dark .cl-socialButtonsBlockButtonText {
+  color: #e2e8f0 !important;
+}
+
+html.dark .cl-dividerLine {
+  background-color: #334155 !important;
+}
+
+html.dark .cl-dividerText {
+  color: #94a3b8 !important;
+}
+
+html.dark .cl-footerActionText,
+html.dark .cl-footerActionLink {
+  color: #94a3b8 !important;
+}
+
+html.dark .cl-footerActionLink:hover {
+  color: #a8b5a0 !important;
+}
+
+html.dark .cl-navbar,
+html.dark .cl-pageScrollBox,
+html.dark .cl-internal-ph3z2c {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+html.dark .cl-navbarButton {
+  color: #cbd5e1 !important;
+}
+
+html.dark .cl-navbarButton:hover {
+  background-color: #334155 !important;
+}
+
 /* ── Custom Scrollbar (WebKit) ── */
 ::-webkit-scrollbar {
   width: 6px;
