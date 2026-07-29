@@ -4,6 +4,7 @@ import {
   Wind,
   Sparkles,
   Brain,
+  BookMarked,
   type LucideIcon,
 } from "lucide-react";
 
@@ -116,6 +117,24 @@ export const MODES: ModeConfig[] = [
     accentClass: "text-emerald-600",
     gradientFrom: "from-emerald-100",
     gradientTo: "to-teal-50",
+  },
+  {
+    key: "devotion",
+    label: "Devotion",
+    prompt: "Daily scripture reading, meditation, and prayer reflection.",
+    icon: BookMarked,
+    href: "/devotion",
+    iconColor: "text-amber-600",
+    iconBg: "bg-amber-500/15",
+    cardBg: "bg-amber-500/10 hover:bg-amber-500/15",
+    cardBorder: "border-amber-200/80",
+    badgeBg: "bg-amber-500/15 text-amber-900 border-amber-200/80",
+    activeBorder: "border-amber-600",
+    activeBg: "bg-amber-500/20",
+    textClass: "text-amber-950",
+    accentClass: "text-amber-600",
+    gradientFrom: "from-amber-100",
+    gradientTo: "to-yellow-50",
   },
 ];
 

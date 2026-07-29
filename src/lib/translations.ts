@@ -53,6 +53,8 @@ export interface Translations {
     visionsPrompt: string;
     braindumpLabel: string;
     braindumpPrompt: string;
+    devotionLabel: string;
+    devotionPrompt: string;
   };
   archive: {
     title: string;
@@ -135,6 +137,8 @@ export const translations: Record<Language, Translations> = {
       visionsPrompt: "What is one small step for your future today?",
       braindumpLabel: "Brain Dump",
       braindumpPrompt: "A blank canvas to pour out your thoughts.",
+      devotionLabel: "Devotion",
+      devotionPrompt: "Daily scripture reading, meditation, and prayer reflection.",
     },
     archive: {
       title: "Recent Reflections & Memory Vault",
@@ -215,6 +219,8 @@ export const translations: Record<Language, Translations> = {
       visionsPrompt: "Apa satu langkah kecil untuk masa depanmu hari ini?",
       braindumpLabel: "Brain Dump",
       braindumpPrompt: "Kanvas kosong untuk membuang semua isi pikiranmu.",
+      devotionLabel: "Renungan",
+      devotionPrompt: "Bahan bacaan Kitab Suci, meditasi, dan doa harian.",
     },
     archive: {
       title: "Refleksi Terkini & Brankas Kenangan",

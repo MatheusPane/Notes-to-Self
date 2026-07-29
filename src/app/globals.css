@@ -450,3 +450,28 @@ html.dark .paper-braindump p:not(.text-muted),
 html.dark .paper-braindump span:not(.text-muted) {
   color: #f1f5f9 !important;
 }
+
+/* 6. Devotion: Clean Classic Book Page */
+.paper-devotion {
+  background-color: #FDFBF7;
+  box-shadow: 0 20px 45px -15px rgba(180, 140, 90, 0.25), 0 0 0 1px rgba(217, 119, 6, 0.2);
+}
+
+html.dark .paper-devotion {
+  background-color: #1e1e24;
+  box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(245, 158, 11, 0.25);
+}
+
+.paper-devotion input,
+.paper-devotion textarea,
+.paper-devotion p:not(.text-muted),
+.paper-devotion span:not(.text-muted) {
+  color: #1c1917 !important;
+}
+
+html.dark .paper-devotion input,
+html.dark .paper-devotion textarea,
+html.dark .paper-devotion p:not(.text-muted),
+html.dark .paper-devotion span:not(.text-muted) {
+  color: #f5f5f4 !important;
+}
