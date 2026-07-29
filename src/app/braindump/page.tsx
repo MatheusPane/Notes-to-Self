@@ -78,7 +78,7 @@ export default function BrainDumpPage() {
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
               <button
                 onClick={() => router.push("/dashboard")}
-                className="flex items-center gap-1.5 text-sm font-medium text-muted dark:text-slate-400 hover:text-charcoal dark:hover:text-slate-100 transition-colors px-3 py-1.5 rounded-xl hover:bg-white/40 dark:hover:bg-white/10"
+                className="flex items-center gap-1.5 text-sm font-medium text-muted dark:text-gray-300 hover:text-charcoal dark:hover:text-white transition-colors px-3 py-1.5 rounded-xl hover:bg-white/40 dark:hover:bg-white/10"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span className="hidden sm:inline">Back to Dashboard</span>
@@ -88,7 +88,7 @@ export default function BrainDumpPage() {
                 <div className="w-8 h-8 rounded-lg bg-warm-white dark:bg-slate-800 border border-broken-white dark:border-slate-700 flex items-center justify-center text-charcoal dark:text-emerald-400 shadow-xs">
                   <Brain className="w-4 h-4" />
                 </div>
-                <span className="font-serif text-base font-bold text-navy dark:text-slate-100">
+                <span className="font-serif text-base font-bold text-navy dark:text-white">
                   Brain Dump Mode
                 </span>
               </div>
@@ -97,7 +97,7 @@ export default function BrainDumpPage() {
                 <button
                   onClick={() => setIsFocusMode(true)}
                   title="Focus Mode"
-                  className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-muted dark:text-slate-300 hover:text-charcoal dark:hover:text-white bg-white/60 dark:bg-slate-800/80 hover:bg-white rounded-xl transition-colors border border-broken-white/80 dark:border-slate-700 shadow-xs"
+                  className="flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-muted dark:text-gray-300 hover:text-charcoal dark:hover:text-white bg-white/60 dark:bg-slate-800/80 hover:bg-white rounded-xl transition-colors border border-broken-white/80 dark:border-slate-700 shadow-xs"
                 >
                   <Maximize2 className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline">Focus Mode</span>
@@ -130,7 +130,7 @@ export default function BrainDumpPage() {
           animate={{ opacity: 0.8 }}
           whileHover={{ opacity: 1, scale: 1.05 }}
           onClick={() => setIsFocusMode(false)}
-          className="fixed top-6 right-6 z-40 flex items-center gap-2 px-4 py-2 bg-white/90 dark:bg-slate-800/90 glass text-muted dark:text-slate-300 text-xs font-semibold rounded-full shadow-md border border-broken-white dark:border-slate-700"
+          className="fixed top-6 right-6 z-40 flex items-center gap-2 px-4 py-2 bg-white/90 dark:bg-slate-800/90 glass text-muted dark:text-gray-300 text-xs font-semibold rounded-full shadow-md border border-broken-white dark:border-slate-700"
         >
           <Minimize2 className="w-4 h-4 text-sage-dark dark:text-emerald-400" />
           Exit Focus Mode
@@ -152,10 +152,10 @@ export default function BrainDumpPage() {
               <div className="w-16 h-16 rounded-full bg-sage/20 dark:bg-emerald-900/40 flex items-center justify-center mb-4 text-sage-dark dark:text-emerald-400 shadow-xs">
                 <Check className="w-8 h-8" />
               </div>
-              <p className="font-serif text-2xl text-navy dark:text-slate-100 font-bold">
+              <p className="font-serif text-2xl text-navy dark:text-white font-bold">
                 Brain Dump Captured 🧠
               </p>
-              <p className="text-sm text-muted dark:text-slate-400 mt-1">Your mind is clear and free. Redirecting...</p>
+              <p className="text-sm text-muted dark:text-gray-300 mt-1">Your mind is clear and free. Redirecting...</p>
             </motion.div>
           ) : (
             <div className="space-y-6">
@@ -165,7 +165,7 @@ export default function BrainDumpPage() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Title (optional)..."
-                className="w-full bg-transparent border-b border-slate-300/50 dark:border-slate-700/50 pb-3 outline-none font-serif text-2xl sm:text-3xl text-slate-900 dark:text-slate-100 font-bold placeholder:text-slate-400/50 placeholder:font-serif"
+                className="w-full bg-transparent border-b border-slate-300/50 dark:border-slate-700/50 pb-3 outline-none font-serif text-2xl sm:text-3xl text-slate-900 dark:text-white font-bold placeholder:text-slate-400 dark:placeholder:text-gray-400 placeholder:font-serif"
               />
 
               {/* Content Textarea */}
@@ -174,11 +174,11 @@ export default function BrainDumpPage() {
                 onChange={(e) => setContent(e.target.value)}
                 placeholder="Dump everything here. Thoughts, tasks, random ideas, worries... unedited and free."
                 autoFocus
-                className="w-full min-h-[40vh] md:min-h-[50vh] bg-transparent border-none outline-none resize-none font-sans text-base sm:text-lg text-slate-900 dark:text-slate-100 placeholder:text-slate-400/50 leading-[32px] pt-[2px]"
+                className="w-full min-h-[40vh] md:min-h-[50vh] bg-transparent border-none outline-none resize-none font-sans text-base sm:text-lg text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-gray-400 leading-[32px] pt-[2px]"
               />
 
               {/* Footer Reading & Auto-save Stats Bar */}
-              <div className="pt-4 border-t border-slate-300/50 dark:border-slate-700/50 flex flex-wrap items-center justify-between gap-4 text-xs text-muted dark:text-slate-400 font-sans">
+              <div className="pt-4 border-t border-slate-300/50 dark:border-slate-700/50 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500 dark:text-gray-300 font-sans">
                 <div className="flex items-center gap-4">
                   <span>{wordCount} words</span>
                   <span>•</span>
