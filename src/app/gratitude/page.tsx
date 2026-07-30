@@ -135,10 +135,10 @@ export default function GratitudePage() {
                     initial={{ opacity: 0, x: -15 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.2 + i * 0.1 }}
-                    className="bg-white/80 dark:bg-slate-900/90 rounded-2xl p-5 border border-orange-200/50 dark:border-orange-900/60 shadow-xs focus-within:ring-2 focus-within:ring-peach-dark/40 dark:focus-within:ring-orange-400/40 transition-all"
+                    className="bg-white/80 dark:bg-[#161210]/90 rounded-2xl p-5 border border-orange-200/50 dark:border-orange-900/50 shadow-xs focus-within:ring-2 focus-within:ring-peach-dark/40 dark:focus-within:ring-orange-400/40 transition-all"
                   >
-                    <label className="block text-sm font-bold text-amber-950 dark:text-orange-200 mb-2">
-                      <span className="inline-flex items-center justify-center w-6 h-6 bg-peach/40 dark:bg-orange-900/60 rounded-full text-xs font-bold text-amber-950 dark:text-orange-100 mr-2">
+                    <label className="block text-sm font-bold text-amber-950 dark:text-amber-100 mb-2">
+                      <span className="inline-flex items-center justify-center w-6 h-6 bg-peach/40 dark:bg-orange-900/60 rounded-full text-xs font-bold text-amber-950 dark:text-orange-100 mr-2 border border-peach-dark/20 dark:border-orange-700/40">
                         {i + 1}
                       </span>
                       {prompt}
@@ -147,7 +147,7 @@ export default function GratitudePage() {
                       value={entries[i]}
                       onChange={(e) => updateEntry(i, e.target.value)}
                       placeholder="Write your note..."
-                      className="w-full bg-transparent border-none outline-none resize-none font-serif text-base text-amber-950 dark:text-white placeholder:text-amber-900/40 dark:placeholder:text-gray-400 placeholder:italic leading-relaxed min-h-[70px]"
+                      className="w-full bg-transparent border-none outline-none resize-none font-serif text-base text-amber-950 dark:text-[#f7eade] placeholder:text-amber-900/40 dark:placeholder:text-stone-400 placeholder:italic leading-relaxed min-h-[70px]"
                       rows={2}
                     />
                   </motion.div>

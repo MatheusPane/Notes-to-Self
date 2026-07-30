@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
+
 /* ── Design Tokens ── */
 @theme {
   /* Earth Tone Palette */
