@@ -6,7 +6,7 @@ import MoodTracker from "@/components/MoodTracker";
 import ModeSelector from "@/components/ModeSelector";
 import AmbientPlayer from "@/components/AmbientPlayer";
 import { MODES } from "@/lib/modes";
-import { BookOpen, TrendingUp, Sparkles, ArrowRight, Clock } from "lucide-react";
+import { BookOpen, TrendingUp, Sparkles, ArrowRight, Clock, Flame } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -23,6 +23,7 @@ interface DashboardClientProps {
   todayMood: string | null;
   recentEntries: RecentEntry[];
   entryCount: number;
+  currentStreak?: number;
 }
 
 export default function DashboardClient({
@@ -30,6 +31,7 @@ export default function DashboardClient({
   todayMood,
   recentEntries,
   entryCount,
+  currentStreak = 0,
 }: DashboardClientProps) {
   const { language, t } = useLanguage();
 
@@ -72,7 +74,27 @@ export default function DashboardClient({
               </h1>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap">
+              {/* Daily Streak Badge */}
+              <div className="flex items-center gap-2 px-4 py-2 bg-amber-500/10 dark:bg-amber-500/15 rounded-2xl border border-amber-500/20 dark:border-amber-500/30 text-amber-900 dark:text-amber-200 shadow-xs">
+                <Flame
+                  className={`w-4 h-4 transition-colors ${
+                    currentStreak > 0
+                      ? "text-orange-500 fill-orange-500/20"
+                      : "text-muted dark:text-slate-400"
+                  }`}
+                />
+                <span className="text-sm font-semibold">
+                  {currentStreak > 0
+                    ? `${currentStreak} ${
+                        currentStreak === 1
+                          ? t.dashboard.streakOne
+                          : t.dashboard.streakMany
+                      }`
+                    : t.dashboard.streakEmpty}
+                </span>
+              </div>
+
               <div className="flex items-center gap-2 px-4 py-2 bg-sage/15 rounded-2xl border border-sage/20 text-navy">
                 <BookOpen className="w-4 h-4 text-sage-dark" />
                 <span className="text-sm font-semibold">

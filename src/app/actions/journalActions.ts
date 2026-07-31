@@ -20,6 +20,17 @@ async function ensureUser(userId: string) {
   });
 }
 
+/**
+ * Calculates calendar day difference between two dates,
+ * ignoring time of day.
+ */
+function getCalendarDayDifference(dateA: Date, dateB: Date): number {
+  const dayA = new Date(dateA.getFullYear(), dateA.getMonth(), dateA.getDate());
+  const dayB = new Date(dateB.getFullYear(), dateB.getMonth(), dateB.getDate());
+  const diffMs = dayA.getTime() - dayB.getTime();
+  return Math.round(diffMs / (1000 * 60 * 60 * 24));
+}
+
 // ── Entry Actions ──
 
 export async function createEntry(data: {
@@ -31,6 +42,31 @@ export async function createEntry(data: {
   const userId = await getAuthUserId();
   await ensureUser(userId);
 
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { currentStreak: true, lastEntryDate: true },
+  });
+
+  const now = new Date();
+  let newStreak = 1;
+
+  if (user?.lastEntryDate) {
+    const diffDays = getCalendarDayDifference(now, user.lastEntryDate);
+    if (diffDays === 0) {
+      // Entry saved today: streak remains unchanged
+      newStreak = Math.max(user.currentStreak, 1);
+    } else if (diffDays === 1) {
+      // Last entry was yesterday: increment streak
+      newStreak = user.currentStreak + 1;
+    } else {
+      // Last entry was older than yesterday: reset streak to 1
+      newStreak = 1;
+    }
+  } else {
+    // First entry ever: set streak to 1
+    newStreak = 1;
+  }
+
   const entry = await prisma.entry.create({
     data: {
       userId,
@@ -41,9 +77,38 @@ export async function createEntry(data: {
     },
   });
 
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      currentStreak: newStreak,
+      lastEntryDate: now,
+    },
+  });
+
   revalidatePath("/archive");
   revalidatePath("/dashboard");
   return entry;
+}
+
+export async function getUserStreak(): Promise<number> {
+  const userId = await getAuthUserId();
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { currentStreak: true, lastEntryDate: true },
+  });
+
+  if (!user || !user.lastEntryDate) return 0;
+
+  const now = new Date();
+  const diffDays = getCalendarDayDifference(now, user.lastEntryDate);
+
+  // If last entry was today (0) or yesterday (1), currentStreak is active.
+  if (diffDays <= 1) {
+    return user.currentStreak;
+  }
+
+  return 0;
 }
 
 export async function getEntries(mode?: string) {

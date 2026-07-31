@@ -26,6 +26,9 @@ export interface Translations {
     viewAll: string;
     noEntriesYet: string;
     burnedTag: string;
+    streakOne: string;
+    streakMany: string;
+    streakEmpty: string;
   };
   moodTracker: {
     subtitleTag: string;
@@ -126,6 +129,9 @@ export const translations: Record<Language, Translations> = {
       viewAll: "View All",
       noEntriesYet: "No journal entries yet. Pick a mode below to write your first note!",
       burnedTag: "burned",
+      streakOne: "Day Streak",
+      streakMany: "Days Streak",
+      streakEmpty: "Start your streak today",
     },
     moodTracker: {
       subtitleTag: "Daily Check-in",
@@ -224,6 +230,9 @@ export const translations: Record<Language, Translations> = {
       viewAll: "Lihat Semua",
       noEntriesYet: "Belum ada catatan jurnal. Pilih mode di bawah untuk menulis catatan pertamamu!",
       burnedTag: "dilepaskan",
+      streakOne: "Hari Beruntun",
+      streakMany: "Hari Beruntun",
+      streakEmpty: "Mulai streak-mu hari ini",
     },
     moodTracker: {
       subtitleTag: "Check-in Harian",

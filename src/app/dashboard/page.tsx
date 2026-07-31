@@ -1,7 +1,12 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import DashboardClient from "./DashboardClient";
-import { getTodayMood, getRecentEntries, getEntryCount } from "@/app/actions/journalActions";
+import {
+  getTodayMood,
+  getRecentEntries,
+  getEntryCount,
+  getUserStreak,
+} from "@/app/actions/journalActions";
 
 export default async function DashboardPage() {
   const user = await currentUser();
@@ -16,11 +21,13 @@ export default async function DashboardPage() {
     burned: boolean;
   }> = [];
   let entryCount = 0;
+  let currentStreak = 0;
 
   try {
     todayMood = await getTodayMood();
     recentEntries = await getRecentEntries(4);
     entryCount = await getEntryCount();
+    currentStreak = await getUserStreak();
   } catch {
     // DB not yet migrated – render empty state
   }
@@ -37,6 +44,7 @@ export default async function DashboardPage() {
         burned: e.burned,
       }))}
       entryCount={entryCount}
+      currentStreak={currentStreak}
     />
   );
 }
