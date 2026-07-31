@@ -19,6 +19,28 @@ import {
 import { deleteEntry } from "@/app/actions/journalActions";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import { cn } from "@/lib/utils";
+
+function getModeTitle(mode: string, language: string, customTitle?: string | null): string {
+  if (customTitle && customTitle.trim()) return customTitle;
+  const isId = language === "id";
+  switch (mode) {
+    case "gratitude":
+      return isId ? "Momen Rasa Syukur" : "A Moment of Gratitude";
+    case "vent":
+      return isId ? "Beban Pikiran Dilepaskan" : "A Heavy Thought Released";
+    case "breathe":
+      return isId ? "Ruang Hening & Napas" : "A Moment of Reflection & Breath";
+    case "visions":
+      return isId ? "Visi Masa Depan" : "A Vision for the Future";
+    case "braindump":
+      return isId ? "Curahan Pikiran" : "Unfiltered Thoughts";
+    case "devotion":
+      return isId ? "Renungan & Doa" : "Spiritual Reflection & Meditation";
+    default:
+      return isId ? "Refleksi Jurnal" : "Journal Reflection";
+  }
+}
 
 export interface ArchiveEntry {
   id: string;
@@ -271,94 +293,144 @@ export default function ArchiveClient({ initialEntries }: ArchiveClientProps) {
 
       {/* Entry Detail Modal */}
       <AnimatePresence>
-        {selectedEntry && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedEntry(null)}
-              className="absolute inset-0 bg-black/50 backdrop-blur-md"
-            />
+        {selectedEntry && (() => {
+          const modeConfig = MODES.find((m) => m.key === selectedEntry.mode);
+          const Icon = modeConfig?.icon || BookOpen;
+          const isVent = selectedEntry.mode === "vent";
 
-            {/* Modal Box */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="relative w-full max-w-3xl bg-cream glass rounded-3xl p-6 sm:p-8 shadow-2xl border border-broken-white max-h-[85vh] flex flex-col z-10"
-            >
-              {/* Modal Header */}
-              <div className="flex items-start justify-between border-b border-broken-white/80 pb-4 mb-4">
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span className="text-xs font-bold uppercase tracking-wider text-sage-dark bg-sage/15 px-3 py-1 rounded-full border border-sage/20">
-                      {selectedEntry.mode}
-                    </span>
-                    {selectedEntry.burned && (
-                      <span className="flex items-center gap-1 text-xs font-bold text-red-600 bg-red-500/10 px-3 py-1 rounded-full border border-red-500/20">
-                        <Flame className="w-3.5 h-3.5" />
-                        {t.archive.burnedMemory}
+          let modeLabel = modeConfig?.label ?? selectedEntry.mode;
+          if (selectedEntry.mode === "gratitude") modeLabel = t.modes.gratitudeLabel;
+          if (selectedEntry.mode === "vent") modeLabel = t.modes.ventLabel;
+          if (selectedEntry.mode === "breathe") modeLabel = t.modes.breatheLabel;
+          if (selectedEntry.mode === "visions") modeLabel = t.modes.visionsLabel;
+          if (selectedEntry.mode === "braindump") modeLabel = t.modes.braindumpLabel;
+          if (selectedEntry.mode === "devotion") modeLabel = t.modes.devotionLabel;
+
+          return (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setSelectedEntry(null)}
+                className="fixed inset-0 bg-black/60 backdrop-blur-md"
+              />
+
+              {/* Dynamic Floating Paper Themed Modal Container */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.96, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96, y: 15 }}
+                transition={{ type: "spring", stiffness: 320, damping: 28 }}
+                className={cn(
+                  "relative w-full max-w-3xl rounded-3xl p-6 sm:p-10 shadow-2xl border max-h-[88vh] flex flex-col z-10 overflow-hidden transition-colors duration-300",
+                  selectedEntry.mode === "gratitude" && "paper-gratitude border-orange-200/60 dark:border-orange-900/40",
+                  selectedEntry.mode === "vent" && "paper-vent border-red-900/40 dark:border-red-950/60 text-slate-100",
+                  selectedEntry.mode === "breathe" && "paper-breathe border-sky-200/60 dark:border-sky-800/40 text-slate-900 dark:text-sky-100",
+                  selectedEntry.mode === "visions" && "paper-visions border-purple-200/60 dark:border-purple-800/40 text-purple-950 dark:text-purple-100",
+                  selectedEntry.mode === "braindump" && "paper-braindump border-slate-300/50 dark:border-slate-700/50 pl-8 sm:pl-14 text-slate-900 dark:text-slate-100",
+                  selectedEntry.mode === "devotion" && "paper-devotion border-amber-200/50 dark:border-amber-900/40 text-stone-900 dark:text-stone-100",
+                  !["gratitude", "vent", "breathe", "visions", "braindump", "devotion"].includes(selectedEntry.mode) &&
+                    "bg-cream glass border-broken-white text-navy"
+                )}
+              >
+                {/* Red Notebook Margin Line for Brain Dump mode */}
+                {selectedEntry.mode === "braindump" && (
+                  <div className="absolute left-6 sm:left-10 top-0 bottom-0 w-[2px] bg-red-400/50 dark:bg-red-500/40 pointer-events-none" />
+                )}
+
+                {/* Modal Header */}
+                <div className="flex items-start justify-between border-b pb-4 mb-4 border-black/10 dark:border-white/10">
+                  <div className="space-y-1.5 pr-4">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <div className={cn("w-6 h-6 rounded-lg flex items-center justify-center shadow-xs", modeConfig?.iconBg, modeConfig?.iconColor)}>
+                        <Icon className="w-3.5 h-3.5" />
+                      </div>
+                      <span className={cn("text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border", modeConfig?.badgeBg ?? "bg-white/60 text-muted")}>
+                        {modeLabel}
                       </span>
-                    )}
+                      {selectedEntry.burned && (
+                        <span className="flex items-center gap-1 text-[11px] font-bold uppercase px-2.5 py-0.5 bg-red-500/15 text-red-700 dark:text-red-300 rounded-full border border-red-300/50 dark:border-red-800/50">
+                          <Flame className="w-3.5 h-3.5 text-red-500" />
+                          {t.archive.burnedMemory}
+                        </span>
+                      )}
+                    </div>
+
+                    <h2 className="font-serif text-2xl sm:text-3xl font-bold leading-snug">
+                      {getModeTitle(selectedEntry.mode, language, selectedEntry.title)}
+                    </h2>
+
+                    <div className="flex items-center gap-1.5 text-xs text-muted dark:text-gray-400 font-sans">
+                      <Calendar className="w-3.5 h-3.5" />
+                      <span className="italic">
+                        {new Date(selectedEntry.createdAt).toLocaleString(
+                          language === "id" ? "id-ID" : "en-US",
+                          {
+                            weekday: "long",
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          }
+                        )}
+                      </span>
+                    </div>
                   </div>
-                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-navy">
-                    {selectedEntry.title || t.archive.journalReflection}
-                  </h2>
-                  <p className="text-xs text-muted mt-1">
-                    {new Date(selectedEntry.createdAt).toLocaleString(
-                      language === "id" ? "id-ID" : "en-US",
-                      {
-                        weekday: "long",
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      }
-                    )}
-                  </p>
+
+                  {/* Top Minimalist Close Button */}
+                  <button
+                    onClick={() => setSelectedEntry(null)}
+                    aria-label="Close modal"
+                    className="p-2 text-muted hover:text-charcoal dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors shrink-0"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
                 </div>
 
-                <button
-                  onClick={() => setSelectedEntry(null)}
-                  className="p-2 text-muted hover:text-charcoal hover:bg-white/60 rounded-full transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
+                {/* Modal Body (Book-like Serif Typography) */}
+                <div className="flex-1 overflow-y-auto pr-2 my-2 space-y-4 font-serif text-base sm:text-lg leading-relaxed whitespace-pre-wrap select-text">
+                  {selectedEntry.content}
+                </div>
 
-              {/* Modal Body Scrollable */}
-              <div className="flex-1 overflow-y-auto pr-2 my-2 space-y-4 text-charcoal font-sans text-base sm:text-lg leading-relaxed whitespace-pre-wrap">
-                {selectedEntry.content}
-              </div>
+                {/* Modal Footer */}
+                <div className="flex items-center justify-between pt-4 border-t border-black/10 dark:border-white/10 mt-4">
+                  {/* Subtle Delete Trash Icon Button */}
+                  <button
+                    onClick={() => handleDelete(selectedEntry.id)}
+                    disabled={isDeleting}
+                    title={t.archive.deleteEntry}
+                    aria-label={t.archive.deleteEntry}
+                    className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-muted hover:text-red-600 dark:hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-all disabled:opacity-40"
+                  >
+                    {isDeleting ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : (
+                      <Trash2 className="w-4 h-4" />
+                    )}
+                    <span className="hidden sm:inline">{t.archive.deleteEntry}</span>
+                  </button>
 
-              {/* Modal Footer */}
-              <div className="flex items-center justify-between pt-4 border-t border-broken-white/80 mt-4">
-                <button
-                  onClick={() => handleDelete(selectedEntry.id)}
-                  disabled={isDeleting}
-                  className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 rounded-xl transition-colors disabled:opacity-50"
-                >
-                  {isDeleting ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  ) : (
-                    <Trash2 className="w-4 h-4" />
-                  )}
-                  <span>{t.archive.deleteEntry}</span>
-                </button>
-
-                <button
-                  onClick={() => setSelectedEntry(null)}
-                  className="px-5 py-2.5 bg-navy text-white text-xs font-semibold rounded-xl hover:bg-navy/90 transition-colors shadow-xs"
-                >
-                  {t.archive.closeNote}
-                </button>
-              </div>
-            </motion.div>
-          </div>
-        )}
+                  {/* Soft Theme-Matching Close Button */}
+                  <button
+                    onClick={() => setSelectedEntry(null)}
+                    className={cn(
+                      "px-6 py-2.5 text-xs font-semibold rounded-xl transition-all shadow-xs hover:scale-105",
+                      isVent
+                        ? "bg-red-600 hover:bg-red-500 text-white"
+                        : "bg-navy hover:bg-navy/90 dark:bg-white/15 dark:hover:bg-white/25 text-white"
+                    )}
+                  >
+                    {t.archive.closeNote}
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          );
+        })()}
       </AnimatePresence>
 
       <AmbientPlayer />
